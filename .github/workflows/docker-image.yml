@@ -51,3 +51,8 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Deploy Webhook
+        uses: jasongitmail/fast-webhook@v1.1.4
+        with:
+          url: ${{ secrets.DEPLOY_WEBHOOK_URL }}
