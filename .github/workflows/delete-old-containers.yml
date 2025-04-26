@@ -1,0 +1,28 @@
+name: Delete Old Containers
+# This workflow deletes old containers from the registry to keep the repository clean and manage storage effectively.
+# It is triggered manually and keep 10 versions of the container images.
+
+on:
+  workflow_dispatch:  # Keep manual trigger
+  schedule:
+    # Run at 00:00 UTC every 10 days
+    - cron: '0 0 */10 * *'
+
+env:
+  package-name: 'nuxt3-docker'
+
+jobs:
+  delete-old-containers:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Deleting old containers..."
+
+      - name: Delete old containers
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: ${{ env.package-name }}
+          package-type: 'container'
+          min-versions-to-keep: 10
+          owner: ${{ github.repository_owner }}
+          token: ${{ secrets.DELETE_OLD_CONTAINERS }}
