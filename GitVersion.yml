@@ -1,0 +1,10 @@
+tag-prefix: 'v'
+branches:
+  main:
+    increment: Minor
+  feature:
+    increment: Patch
+  release:
+    increment: Patch
+  hotfix:
+    increment: Patch
